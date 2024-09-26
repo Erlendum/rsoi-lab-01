@@ -7,27 +7,8 @@ on:
     branches:
       - master
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup Golang
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22.0'
-          
-      - name: Install dependencies
-        run: go mod tidy
-        
-      - name: Build app
-        run: go build ./cmd/persons-service/persons-service.go
-
   test:
     name: Test
-    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
