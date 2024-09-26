@@ -70,3 +70,28 @@ jobs:
             docker pull erlendum/rsoi-lab-01:latest &&
             (docker stop persons-service && docker rm persons-service || true) &&
             docker run --env-file /envs/persons-service.env --name persons-service -p $EXT_PORT:8018 --restart always -d erlendum/rsoi-lab-01
+  api_tests:
+    needs: [deploy]
+    name: API tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add app URL to Postman environment
+        uses: sergeysova/jq-action@v2
+        id: version
+        with:
+          cmd: >-
+            jq '.values[0].value = "http://${{ secrets.DEPLOY_HOST }}:${{ secrets.PERSONS_SERVICE_EXT_PORT }}"'
+            < postman/\[inst\]\[heroku\]\ Lab1.postman_environment.json > out.tmp &&
+            mv out.tmp postman/\[inst\]\[heroku\]\ Lab1.postman_environment.json
+
+      - name: Run API Tests
+        uses: matt-ball/newman-action@master
+        with:
+          collection: postman/[inst] Lab1.postman_collection.json
+          environment: postman/[inst][heroku] Lab1.postman_environment.json
+          delayRequest: 100
+          reporters: '[ "cli" ]'
+
