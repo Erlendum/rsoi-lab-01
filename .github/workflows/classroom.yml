@@ -68,5 +68,5 @@ jobs:
           allenvs: true
           script: >-
             docker pull erlendum/rsoi-lab-01:latest &&
-            (docker stop app && docker rm persons-service || true) &&
+            (docker stop persons-service && docker rm persons-service || true) &&
             docker run --env-file /envs/persons-service.env --name persons-service -p $EXT_PORT:8018 --restart always -d erlendum/rsoi-lab-01
