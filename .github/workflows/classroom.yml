@@ -41,7 +41,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: build/persons-service
+          context: .
+          file: build/persons-service/Dockerfile
           push: true
           tags: erlendum/rsoi-lab-01:latest
           build-args: |
