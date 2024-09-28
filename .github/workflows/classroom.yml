@@ -94,4 +94,7 @@ jobs:
           environment: postman/[inst][heroku] Lab1.postman_environment.json
           delayRequest: 100
           reporters: '[ "cli" ]'
+      - name: Autograding
+        uses: education/autograding@v1
+        continue-on-error: true
 
