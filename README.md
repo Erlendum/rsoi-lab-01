@@ -1,6 +1,6 @@
 # Лабораторная работа #1
 
-![GitHub Classroom Workflow](../../workflows/GitHub%20Classroom%20Workflow/badge.svg?branch=master)
+![GitHub Classroom Workflow](../../actions/workflows/classroom.yml/badge.svg?branch=master)
 
 ## Continuous Integration & Continuous Delivery
 
